@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public bool isFacingRight;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private float moveInput;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         StartCheckingDirection();
     }
 
@@ -27,7 +29,13 @@ public class Player : MonoBehaviour
 
         if(moveInput >0 || moveInput <0)
         {
+            anim.SetBool("IsWalking", true);
+
             TurnCheck();
+        }
+        else
+        {
+            anim.SetBool("IsWalking", false);
         }
 
         rb.velocity = new Vector2 (moveInput*moveSpeed,rb.velocity.y);
